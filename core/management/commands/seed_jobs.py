@@ -1,3 +1,4 @@
+
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from pathlib import Path
@@ -11,11 +12,27 @@ class Command(BaseCommand):
 
         if not fixture.exists():
             self.stdout.write(
-                self.style.WARNING("jobs_data.json not found.")
+                self.style.WARNING(
+                    f"jobs_data.json not found at: {fixture.resolve()}"
+                )
             )
             return
 
-        call_command("loaddata", str(fixture))
         self.stdout.write(
-            self.style.SUCCESS("CampusHire jobs loaded successfully.")
+            self.style.WARNING("Starting CampusHire job loading...")
         )
+
+        try:
+            call_command("loaddata", str(fixture))
+            self.stdout.write(
+                self.style.SUCCESS(
+                    "CampusHire jobs loaded successfully."
+                )
+            )
+        except Exception as e:
+            self.stdout.write(
+                self.style.ERROR(
+                    f"ERROR loading CampusHire jobs: {e}"
+                )
+            )
+            raise
