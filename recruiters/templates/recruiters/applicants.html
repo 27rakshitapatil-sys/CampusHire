@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Applicants - CampusHire</title>
+</head>
+
+<body>
+
+    <h1>Applicants</h1>
+
+    {% if error %}
+
+        <p>{{ error }}</p>
+
+    {% else %}
+
+        <h2>{{ job.title }}</h2>
+
+        <p>
+            <strong>Recruiter:</strong> {{ job.recruiter }}
+        </p>
+
+        <hr>
+
+        {% if applications %}
+
+            {% for application in applications %}
+
+                <div>
+
+                    <h3>Applicant {{ forloop.counter }}</h3>
+
+                    <p>
+                        <strong>Student:</strong>
+                        {{ application.student }}
+                    </p>
+
+                    <p>
+                        <strong>Cover Letter:</strong><br>
+                        {{ application.cover_letter }}
+                    </p>
+
+                    <p>
+                        <strong>Resume:</strong>
+
+                        {% if application.resume %}
+                            <a href="{{ application.resume.url }}" target="_blank">
+                                View Resume
+                            </a>
+                        {% else %}
+                            No resume uploaded
+                        {% endif %}
+
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ application.status }}
+                    </p>
+
+
+                    <!-- STATUS BUTTONS -->
+
+                    <form method="POST"
+                          action="{% url 'update_application_status' application.id 'shortlisted' %}"
+                          style="display:inline;">
+
+                        {% csrf_token %}
+
+                        <button type="submit">
+                            Shortlist
+                        </button>
+
+                    </form>
+
+
+                    <form method="POST"
+                          action="{% url 'update_application_status' application.id 'rejected' %}"
+                          style="display:inline;">
+
+                        {% csrf_token %}
+
+                        <button type="submit">
+                            Reject
+                        </button>
+
+                    </form>
+
+
+                    <form method="POST"
+                          action="{% url 'update_application_status' application.id 'selected' %}"
+                          style="display:inline;">
+
+                        {% csrf_token %}
+
+                        <button type="submit">
+                            Select
+                        </button>
+
+                    </form>
+
+                    <hr>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No applicants have applied for this job yet.</p>
+
+        {% endif %}
+
+    {% endif %}
+
+
+    <br>
+
+    <a href="{% url 'recruiter_dashboard' %}">
+        <button type="button">
+            Back to Dashboard
+        </button>
+    </a>
+
+</body>
+</html>

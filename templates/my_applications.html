@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>My Applications - CampusHire</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 30px;
+        }
+
+        .application-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .application-card h2 {
+            margin-top: 0;
+            color: #2563eb;
+        }
+
+        .company {
+            font-weight: bold;
+            font-size: 17px;
+            margin-bottom: 15px;
+        }
+
+        .info {
+            margin: 8px 0;
+            color: #4b5563;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .shortlisted {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .selected {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .no-applications {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 11px 20px;
+
+            background: #374151;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="navbar">
+
+        <h2>CampusHire</h2>
+
+        <div>
+
+            <a href="{% url 'student_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'job_list' %}">
+                Available Jobs
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <h1>📋 My Applications</h1>
+
+
+        {% if error %}
+
+            <div class="no-applications">
+
+                <h2>{{ error }}</h2>
+
+            </div>
+
+
+        {% elif applications %}
+
+
+            {% for application in applications %}
+
+                <div class="application-card">
+
+                    <h2>
+                        {{ application.job.title }}
+                    </h2>
+
+                    <div class="company">
+
+                        🏢
+                        {{ application.job.recruiter.company_name }}
+
+                    </div>
+
+                    <div class="info">
+
+                        📍
+                        {{ application.job.location }}
+
+                    </div>
+
+                    <div class="info">
+
+                        💼
+                        {{ application.job.job_type }}
+
+                    </div>
+
+                    <div class="info">
+
+                        📅 Applied for this job
+
+                    </div>
+
+
+                    {% if application.status == "Pending" %}
+
+                        <span class="status pending">
+                            ⏳ Pending
+                        </span>
+
+                    {% elif application.status == "Shortlisted" %}
+
+                        <span class="status shortlisted">
+                            ⭐ Shortlisted
+                        </span>
+
+                    {% elif application.status == "Selected" %}
+
+                        <span class="status selected">
+                            🎉 Selected
+                        </span>
+
+                    {% elif application.status == "Rejected" %}
+
+                        <span class="status rejected">
+                            ❌ Rejected
+                        </span>
+
+                    {% else %}
+
+                        <span class="status">
+                            {{ application.status }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="no-applications">
+
+                <h2>📭 No Applications Yet</h2>
+
+                <p>
+                    You haven't applied for any jobs yet.
+                </p>
+
+                <a
+                    href="{% url 'job_list' %}"
+                    class="back-btn"
+                >
+                    🔍 Browse Jobs
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+        <a
+            href="{% url 'student_dashboard' %}"
+            class="back-btn"
+        >
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+
+</html>

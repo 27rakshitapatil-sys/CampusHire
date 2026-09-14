@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>{{ job.title }} - CampusHire</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .job-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .job-title {
+            font-size: 32px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .company {
+            font-size: 18px;
+            color: #4b5563;
+            margin-bottom: 25px;
+        }
+
+        .info {
+            display: inline-block;
+            background: #f3f4f6;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 6px;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 25px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .apply-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <h2>CampusHire</h2>
+
+        <div>
+
+            <a href="{% url 'job_list' %}">
+                Jobs
+            </a>
+
+            <a href="{% url 'my_applications' %}">
+                My Applications
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="container">
+
+        <a
+            href="{% url 'job_list' %}"
+            class="back-btn"
+        >
+            ← Back to Jobs
+        </a>
+
+
+        <div class="job-card">
+
+            <h1 class="job-title">
+                {{ job.title }}
+            </h1>
+
+
+            <div class="company">
+
+                <strong>
+                    {{ job.recruiter.company_name }}
+                </strong>
+
+                <br>
+
+                Recruiter:
+                {{ job.recruiter.full_name }}
+
+            </div>
+
+
+            <!-- BASIC INFORMATION -->
+
+            <div>
+
+                <span class="info">
+                    📍 {{ job.location }}
+                </span>
+
+                <span class="info">
+                    💼 {{ job.job_type }}
+                </span>
+
+                <span class="info">
+                    💰 {{ job.salary }}
+                </span>
+
+                <span class="info">
+                    📅 Deadline: {{ job.deadline }}
+                </span>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="section">
+
+                <h3>
+                    Job Description
+                </h3>
+
+                <div class="description">
+                    {{ job.description }}
+                </div>
+
+            </div>
+
+
+            <!-- REQUIREMENTS -->
+
+            <div class="section">
+
+                <h3>
+                    Requirements
+                </h3>
+
+                <div class="description">
+                    {{ job.requirements }}
+                </div>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="section">
+
+                <h3>
+                    Required Skills
+                </h3>
+
+                <div class="description">
+                    {{ job.skills }}
+                </div>
+
+            </div>
+
+
+            <!-- APPLY BUTTON -->
+
+            <a
+                href="{% url 'apply_job' job.id %}"
+                class="apply-btn"
+            >
+                Apply Now
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

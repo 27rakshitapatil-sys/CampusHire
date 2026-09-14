@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Applications - CampusHire</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .message {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .application-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .application-card h2 {
+            margin-top: 0;
+            color: #111827;
+        }
+
+        .info {
+            margin: 8px 0;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .shortlisted {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .selected {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .view-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .view-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .no-applications {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+
+        <h2>CampusHire</h2>
+
+        <div>
+            <a href="{% url 'job_list' %}">Jobs</a>
+            <a href="{% url 'my_applications' %}">My Applications</a>
+        </div>
+
+    </div>
+
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+
+        <h1>My Applications</h1>
+
+        {% if error %}
+            <div class="message">
+                {{ error }}
+            </div>
+        {% endif %}
+
+
+        {% if applications %}
+
+            {% for application in applications %}
+
+                <div class="application-card">
+
+                    <h2>
+                        {{ application.job.title }}
+                    </h2>
+
+                    <div class="info">
+                        <span class="label">Company:</span>
+                        {{ application.job.recruiter.company_name }}
+                    </div>
+
+                    <div class="info">
+                        <span class="label">Recruiter:</span>
+                        {{ application.job.recruiter.full_name }}
+                    </div>
+
+                    <div class="info">
+                        <span class="label">Job Type:</span>
+                        {{ application.job.job_type }}
+                    </div>
+
+                    <div class="info">
+                        <span class="label">Location:</span>
+                        {{ application.job.location }}
+                    </div>
+
+                    <div class="info">
+                        <span class="label">Applied Date:</span>
+                        {{ application.id }}
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    {% if application.status == "Pending" %}
+
+                        <div class="status pending">
+                            Pending
+                        </div>
+
+                    {% elif application.status == "Shortlisted" %}
+
+                        <div class="status shortlisted">
+                            Shortlisted
+                        </div>
+
+                    {% elif application.status == "Selected" %}
+
+                        <div class="status selected">
+                            Selected 🎉
+                        </div>
+
+                    {% elif application.status == "Rejected" %}
+
+                        <div class="status rejected">
+                            Rejected
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- VIEW JOB -->
+
+                    <br>
+
+                    <a
+                        href="{% url 'job_list' %}"
+                        class="view-btn"
+                    >
+                        View Jobs
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-applications">
+
+                <h2>No Applications Yet</h2>
+
+                <p>
+                    You haven't applied for any jobs yet.
+                </p>
+
+                <a
+                    href="{% url 'job_list' %}"
+                    class="view-btn"
+                >
+                    Browse Jobs
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

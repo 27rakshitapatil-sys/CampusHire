@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Available Jobs - CampusHire</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+
+        /* SEARCH SECTION */
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-form input,
+        .search-form select {
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .search-form input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-form select {
+            min-width: 160px;
+        }
+
+        .search-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .clear-btn {
+            background: #6b7280;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .clear-btn:hover {
+            background: #4b5563;
+        }
+
+
+        /* JOB CARD */
+
+        .job-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .job-card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .job-card h2 a {
+            color: #1f2937;
+            text-decoration: none;
+        }
+
+        .job-card h2 a:hover {
+            color: #2563eb;
+        }
+
+        .company {
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+
+        .info {
+            display: inline-block;
+            background: #f3f4f6;
+            padding: 7px 12px;
+            border-radius: 5px;
+            margin: 4px;
+            font-size: 14px;
+        }
+
+        .description {
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+
+        /* BUTTONS */
+
+        .apply-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .apply-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .applied-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #16a34a;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .details-btn {
+            display: inline-block;
+            margin-top: 15px;
+            margin-left: 8px;
+            padding: 10px 18px;
+            background: #374151;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .details-btn:hover {
+            background: #111827;
+        }
+
+
+        /* NO JOBS */
+
+        .no-jobs {
+            background: white;
+            padding: 35px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+
+        /* POST JOB */
+
+        .post-job-section {
+            margin-top: 30px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .post-job-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 22px;
+            background: #16a34a;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .post-job-btn:hover {
+            background: #15803d;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<div class="navbar">
+
+    <h2>CampusHire</h2>
+
+    <div>
+
+        <a href="{% url 'job_list' %}">
+            Jobs
+        </a>
+
+        <a href="{% url 'my_applications' %}">
+            My Applications
+        </a>
+
+        <a href="{% url 'post_job' %}">
+            Post Job
+        </a>
+
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<div class="container">
+
+    <h1>
+        Available Jobs
+    </h1>
+
+
+    <!-- =================================================
+         SEARCH AND FILTER
+    ================================================== -->
+
+    <div class="search-box">
+
+        <form
+            method="GET"
+            action="{% url 'job_list' %}"
+            class="search-form"
+        >
+
+            <!-- SEARCH -->
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search jobs, skills or company..."
+                value="{{ search }}"
+            >
+
+
+            <!-- LOCATION -->
+
+            <input
+                type="text"
+                name="location"
+                placeholder="Location"
+                value="{{ location }}"
+            >
+
+
+            <!-- JOB TYPE -->
+
+            <select name="job_type">
+
+                <option value="">
+                    All Job Types
+                </option>
+
+                {% for value, label in job_types %}
+
+                    <option
+                        value="{{ value }}"
+                        {% if job_type == value %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ label }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <!-- SEARCH BUTTON -->
+
+            <button
+                type="submit"
+                class="search-btn"
+            >
+                Search
+            </button>
+
+
+            <!-- CLEAR BUTTON -->
+
+            <a
+                href="{% url 'job_list' %}"
+                class="clear-btn"
+            >
+                Clear
+            </a>
+
+        </form>
+
+    </div>
+
+
+    <!-- =================================================
+         JOB LIST
+    ================================================== -->
+
+    {% if jobs %}
+
+        {% for job in jobs %}
+
+            <div class="job-card">
+
+
+                <!-- JOB TITLE -->
+
+                <h2>
+
+                    <a
+                        href="{% url 'job_detail' job.id %}"
+                    >
+                        {{ job.title }}
+                    </a>
+
+                </h2>
+
+
+                <!-- COMPANY -->
+
+                <div class="company">
+
+                    <strong>
+                        {{ job.recruiter.company_name }}
+                    </strong>
+
+                    {% if job.recruiter.full_name %}
+
+                        <br>
+
+                        Recruiter:
+                        {{ job.recruiter.full_name }}
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- JOB INFORMATION -->
+
+                <div>
+
+                    <span class="info">
+                        📍 {{ job.location }}
+                    </span>
+
+                    <span class="info">
+                        💼 {{ job.job_type }}
+                    </span>
+
+                    {% if job.salary %}
+
+                        <span class="info">
+                            💰 {{ job.salary }}
+                        </span>
+
+                    {% endif %}
+
+                    <span class="info">
+                        📅 Deadline: {{ job.deadline }}
+                    </span>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="description">
+
+                    {{ job.description|truncatewords:30 }}
+
+                </div>
+
+
+                <!-- APPLY BUTTON -->
+
+                {% if job.id in applied_job_ids %}
+
+                    <span class="applied-btn">
+                        ✓ Already Applied
+                    </span>
+
+                {% else %}
+
+                    <a
+                        href="{% url 'apply_job' job.id %}"
+                        class="apply-btn"
+                    >
+                        Apply Now
+                    </a>
+
+                {% endif %}
+
+
+                <!-- VIEW DETAILS BUTTON -->
+
+                <a
+                    href="{% url 'job_detail' job.id %}"
+                    class="details-btn"
+                >
+                    View Details
+                </a>
+
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <!-- =================================================
+             NO JOBS
+        ================================================== -->
+
+        <div class="no-jobs">
+
+            <h2>
+                No Jobs Found
+            </h2>
+
+            <p>
+                Try changing your search, location or job type.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         RECRUITER POST JOB
+    ================================================== -->
+
+    <div class="post-job-section">
+
+        <h2>
+            Are you a recruiter?
+        </h2>
+
+        <p>
+            Post a new job and find talented candidates.
+        </p>
+
+        <a
+            href="{% url 'post_job' %}"
+            class="post-job-btn"
+        >
+            Post a New Job
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

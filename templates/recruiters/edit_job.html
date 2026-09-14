@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Edit Job - CampusHire</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            width: 80%;
+            max-width: 850px;
+            margin: 40px auto;
+        }
+
+        /* FORM CARD */
+
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .form-card h1 {
+            color: #2563eb;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 34px;
+        }
+
+        /* FORM GROUP */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        /* BUTTONS */
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .save-btn {
+            padding: 14px 28px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #15803d;
+        }
+
+        .cancel-btn {
+            padding: 14px 28px;
+            background: #6b7280;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .cancel-btn:hover {
+            background: #4b5563;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<div class="navbar">
+
+    <h2>CampusHire</h2>
+
+    <a href="{% url 'recruiter_dashboard' %}">
+        Dashboard
+    </a>
+
+</div>
+
+
+<!-- =========================
+     MAIN CONTAINER
+========================= -->
+
+<div class="container">
+
+    <div class="form-card">
+
+        <h1>
+            ✏️ Edit Job
+        </h1>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- JOB TITLE -->
+
+            <div class="form-group">
+
+                <label>
+                    Job Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ job.title }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    name="location"
+                    value="{{ job.location }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- SALARY -->
+
+            <div class="form-group">
+
+                <label>
+                    Salary
+                </label>
+
+                <input
+                    type="text"
+                    name="salary"
+                    value="{{ job.salary }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- JOB TYPE -->
+
+            <div class="form-group">
+
+                <label>
+                    Job Type
+                </label>
+
+                <select name="job_type" required>
+
+                    <option value="Full Time"
+                        {% if job.job_type == "Full Time" %}selected{% endif %}>
+                        Full Time
+                    </option>
+
+                    <option value="Part Time"
+                        {% if job.job_type == "Part Time" %}selected{% endif %}>
+                        Part Time
+                    </option>
+
+                    <option value="Internship"
+                        {% if job.job_type == "Internship" %}selected{% endif %}>
+                        Internship
+                    </option>
+
+                    <option value="Remote"
+                        {% if job.job_type == "Remote" %}selected{% endif %}>
+                        Remote
+                    </option>
+
+                    <option value="Hybrid"
+                        {% if job.job_type == "Hybrid" %}selected{% endif %}>
+                        Hybrid
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DEADLINE -->
+
+            <div class="form-group">
+
+                <label>
+                    Application Deadline
+                </label>
+
+                <input
+                    type="date"
+                    name="deadline"
+                    value="{{ job.deadline|date:'Y-m-d' }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label>
+                    Job Description
+                </label>
+
+                <textarea
+                    name="description"
+                    required
+                >{{ job.description }}</textarea>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    💾 Save Changes
+                </button>
+
+
+                <a
+                    href="{% url 'recruiter_dashboard' %}"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

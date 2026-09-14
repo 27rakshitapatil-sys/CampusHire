@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CampusHire - Jobs</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+        }
+
+        nav {
+            background: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .container {
+            padding: 50px 8%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .job-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .job-card h2 {
+            color: #2563eb;
+        }
+
+        .job-card p {
+            color: #555;
+        }
+
+        .apply-btn {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+}
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">CampusHire</div>
+    </nav>
+
+    <div class="container">
+
+    <h1>Available Jobs</h1>
+
+    {% for job in jobs %}
+
+    <div class="job-card">
+
+        <h2>{{ job.title }}</h2>
+
+        <p><strong>Company:</strong> {{ job.recruiter.company_name }}</p>
+
+        <p><strong>Location:</strong> {{ job.location }}</p>
+
+        <p><strong>Job Type:</strong> {{ job.job_type }}</p>
+
+        <p><strong>Salary:</strong> {{ job.salary }}</p>
+
+        <p>{{ job.description }}</p>
+
+        <a href="/applications/apply/?job_id={{ job.id }}" class="apply-btn">
+            Apply Now
+        </a>
+
+    </div>
+
+    {% empty %}
+
+    <p style="text-align: center;">
+        No jobs available at the moment.
+    </p>
+
+    {% endfor %}
+
+</div>
+</body>
+</html>

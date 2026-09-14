@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Recruiter Dashboard - CampusHire</title>
+
+    <style>
+        .delete-btn {
+            display: inline-block;
+            margin-top: 18px;
+            margin-left: 10px;
+            padding: 12px 22px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        .edit-btn {
+            display: inline-block;
+            margin-top: 18px;
+            margin-left: 10px;
+            padding: 12px 22px;
+            background: #f59e0b;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .edit-btn:hover {
+            background: #d97706;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .navbar div {
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 88%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .welcome {
+            background: white;
+            padding: 40px 35px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            margin-bottom: 35px;
+        }
+
+        .welcome h1 {
+            color: #2563eb;
+            font-size: 40px;
+            margin-top: 0;
+        }
+
+        .welcome p {
+            font-size: 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .stat-card h3 {
+            font-size: 20px;
+            margin: 0 0 15px;
+        }
+
+        .stat-card .number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .section {
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            margin-bottom: 35px;
+        }
+
+        .section h2 {
+            font-size: 30px;
+            margin-top: 0;
+        }
+
+        .section p {
+            font-size: 18px;
+        }
+
+        .post-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 14px 28px;
+            background: #16a34a;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .post-btn:hover {
+            background: #15803d;
+        }
+
+        .job-card {
+            border: 1px solid #d1d5db;
+            padding: 28px;
+            border-radius: 12px;
+            margin-top: 20px;
+            background: #ffffff;
+        }
+
+        .job-card h3 {
+            color: #2563eb;
+            font-size: 28px;
+            margin-top: 0;
+        }
+
+        .job-info {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .job-info strong {
+            color: #111827;
+        }
+
+        .applicants-btn {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .applicants-btn:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .navbar div {
+                gap: 12px;
+            }
+
+            .navbar a {
+                font-size: 14px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .welcome h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>CampusHire</h2>
+
+    <div>
+
+        <a href="{% url 'recruiter_dashboard' %}">
+            Dashboard
+        </a>
+
+        <a href="{% url 'recruiter_profile' %}">
+            Profile
+        </a>
+
+        <a href="{% url 'post_job' %}">
+            Post Job
+        </a>
+
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <div class="welcome">
+
+        <h1>
+            Welcome to Recruiter Dashboard 👋
+        </h1>
+
+        <p>
+            Manage your job postings, review applicants
+            and select the best candidates.
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <h3>
+                📋 Total Jobs
+            </h3>
+
+            <div class="number">
+                {{ jobs.count }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>
+                👥 Applicants
+            </h3>
+
+            <div class="number">
+                {{ total_applicants }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>
+                ⏳ Pending
+            </h3>
+
+            <div class="number">
+                {{ pending_count }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>
+                ⭐ Shortlisted
+            </h3>
+
+            <div class="number">
+                {{ shortlisted_count }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>
+                ✅ Selected
+            </h3>
+
+            <div class="number">
+                {{ selected_count }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>
+            ➕ Create a New Job
+        </h2>
+
+        <p>
+            Post a new job opportunity and start receiving applications.
+        </p>
+
+        <a
+            href="{% url 'post_job' %}"
+            class="post-btn"
+        >
+            Post New Job
+        </a>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>
+            💼 Posted Jobs
+        </h2>
+
+
+        {% if jobs %}
+
+            {% for job in jobs %}
+
+                <div class="job-card">
+
+                    <h3>
+                        {{ job.title }}
+                    </h3>
+
+
+                    <div class="job-info">
+
+                        <strong>Recruiter:</strong>
+                        {{ job.recruiter.full_name }}
+                        - {{ job.recruiter.company_name }}
+
+                        <br>
+
+                        <strong>Location:</strong>
+                        {{ job.location }}
+
+                        <br>
+
+                        <strong>Salary:</strong>
+                        {{ job.salary }}
+
+                        <br>
+
+                        <strong>Job Type:</strong>
+                        {{ job.job_type }}
+
+                        <br>
+
+                        <strong>Deadline:</strong>
+                        {{ job.deadline }}
+
+                        <br>
+
+                        <strong>Applicants:</strong>
+                        {{ job.applications.count }}
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'view_applicants' job.id %}"
+                        class="applicants-btn"
+                    >
+                        👥 View Applicants
+                    </a>
+
+
+                    <a
+                        href="{% url 'edit_job' job.id %}"
+                        class="edit-btn"
+                    >
+                        ✏️ Edit Job
+                    </a>
+
+
+                    <form
+                        method="POST"
+                        action="{% url 'delete_job' job.id %}"
+                        style="display:inline;"
+                        onsubmit="return confirm('Are you sure you want to delete this job?');"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="delete-btn"
+                        >
+                            🗑️ Delete Job
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <p>
+                No jobs posted yet.
+            </p>
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

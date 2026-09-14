@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Post a Job - CampusHire</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* CONTAINER */
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+
+        /* FORM CARD */
+
+        .form-card {
+            background: white;
+            padding: 35px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+
+        /* FORM */
+
+        form p {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        textarea,
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 6px;
+
+            font-size: 15px;
+
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+
+            outline: none;
+
+            border-color: #2563eb;
+
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+        }
+
+
+        /* POST BUTTON */
+
+        .post-btn {
+
+            width: 100%;
+
+            padding: 13px;
+
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 6px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 10px;
+        }
+
+        .post-btn:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* BACK BUTTON */
+
+        .back-btn {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 10px 18px;
+
+            background: #374151;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+        }
+
+        .back-btn:hover {
+            background: #1f2937;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <h2>CampusHire</h2>
+
+        <div>
+
+            <a href="{% url 'recruiter_dashboard' %}">
+                Recruiter Dashboard
+            </a>
+
+            <a href="{% url 'job_list' %}">
+                Available Jobs
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="container">
+
+
+        <div class="form-card">
+
+
+            <h1>📢 Post a New Job</h1>
+
+            <p class="subtitle">
+                Find the right candidates for your company
+            </p>
+
+
+            <!-- JOB FORM -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+
+                <button
+                    type="submit"
+                    class="post-btn"
+                >
+
+                    🚀 Post Job
+
+                </button>
+
+            </form>
+
+
+            <a
+                href="{% url 'recruiter_dashboard' %}"
+                class="back-btn"
+            >
+
+                ← Back to Dashboard
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

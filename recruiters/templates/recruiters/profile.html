@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recruiter Profile - CampusHire</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            background: #ffffff;
+            padding: 18px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #1f2937;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .logo-preview {
+            margin-top: 10px;
+        }
+
+        .logo-preview img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .save-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 7px;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .container {
+                margin-top: 25px;
+            }
+
+            .profile-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <div class="logo">
+            CampusHire
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'recruiter_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'post_job' %}">
+                Post Job
+            </a>
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="profile-card">
+
+            <h1>Recruiter Profile</h1>
+
+            <p class="subtitle">
+                Manage your personal and company information.
+            </p>
+
+
+            {% if success %}
+                <div class="success">
+                    {{ success }}
+                </div>
+            {% endif %}
+
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        name="full_name"
+                        value="{{ recruiter.full_name }}"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ recruiter.email }}"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Phone</label>
+
+                    <input
+                        type="text"
+                        name="phone"
+                        value="{{ recruiter.phone }}"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Company Name</label>
+
+                    <input
+                        type="text"
+                        name="company_name"
+                        value="{{ recruiter.company_name }}"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Company Description</label>
+
+                    <textarea
+                        name="company_description"
+                        required
+                    >{{ recruiter.company_description }}</textarea>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Company Website</label>
+
+                    <input
+                        type="url"
+                        name="company_website"
+                        value="{{ recruiter.company_website|default:'' }}"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Company Location</label>
+
+                    <input
+                        type="text"
+                        name="company_location"
+                        value="{{ recruiter.company_location }}"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Company Logo</label>
+
+                    <input
+                        type="file"
+                        name="company_logo"
+                        accept="image/*"
+                    >
+
+                    {% if recruiter.company_logo %}
+                        <div class="logo-preview">
+                            <p>Current Logo:</p>
+
+                            <img
+                                src="{{ recruiter.company_logo.url }}"
+                                alt="Company Logo"
+                            >
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="button-row">
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        Save Profile
+                    </button>
+
+                    <a
+                        href="{% url 'recruiter_dashboard' %}"
+                        class="back-btn"
+                    >
+                        Back to Dashboard
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

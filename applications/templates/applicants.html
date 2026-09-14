@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Applicants - CampusHire</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #1f2937;
+            color: white;
+            padding: 20px 40px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+        .job-title {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .job-title h2 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+
+        .applicant {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .applicant h3 {
+            margin-top: 0;
+            color: #2563eb;
+        }
+
+        .info {
+            margin: 10px 0;
+        }
+
+        .status {
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 18px;
+            margin-right: 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .shortlist {
+            background-color: #2563eb;
+        }
+
+        .reject {
+            background-color: #dc2626;
+        }
+
+        .select {
+            background-color: #16a34a;
+        }
+
+        .resume {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .no-applicants {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="header">
+
+        <h1>CampusHire</h1>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="job-title">
+
+            <h2>Applicants</h2>
+
+            <p>
+                <strong>Job:</strong>
+                {{ job.title }}
+            </p>
+
+        </div>
+
+
+        {% if applications %}
+
+            {% for application in applications %}
+
+                <div class="applicant">
+
+                    <h3>
+                        Applicant {{ forloop.counter }}
+                    </h3>
+
+
+                    <div class="info">
+
+                        <strong>Student:</strong>
+
+                        {{ application.student }}
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <strong>Cover Letter:</strong>
+
+                        {% if application.cover_letter %}
+
+                            <p>
+                                {{ application.cover_letter }}
+                            </p>
+
+                        {% else %}
+
+                            <p>
+                                No cover letter provided
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <strong>Resume:</strong>
+
+                        {% if application.resume %}
+
+                            <a
+                                href="{{ application.resume.url }}"
+                                target="_blank"
+                                class="resume"
+                            >
+                                View Resume
+                            </a>
+
+                        {% else %}
+
+                            No resume uploaded
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="status">
+
+                        Status:
+
+                        {{ application.status }}
+
+                    </div>
+
+
+                    <div class="buttons">
+
+                        <a
+                            href="{% url 'shortlist_application' application.id %}"
+                            class="shortlist"
+                        >
+                            Shortlist
+                        </a>
+
+
+                        <a
+                            href="{% url 'reject_application' application.id %}"
+                            class="reject"
+                        >
+                            Reject
+                        </a>
+
+
+                        <a
+                            href="{% url 'select_application' application.id %}"
+                            class="select"
+                        >
+                            Select
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="no-applicants">
+
+                <h3>No applicants yet.</h3>
+
+                <p>
+                    Students who apply for this job will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+</body>
+
+</html>

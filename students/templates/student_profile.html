@@ -1,0 +1,342 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile - CampusHire</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .profile-card {
+            width: 600px;
+            max-width: 90%;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-card h2 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #2563eb;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .current-file {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .current-file a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .profile-card {
+                margin: 25px auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>CampusHire</h2>
+
+        <div>
+            <a href="{% url 'student_dashboard' %}">Dashboard</a>
+            <a href="{% url 'job_list' %}">Jobs</a>
+        </div>
+    </div>
+
+
+    <div class="profile-card">
+
+        <h2>Student Profile</h2>
+
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+
+        {% if success %}
+            <div class="success">
+                {{ success }}
+            </div>
+        {% endif %}
+
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+
+            <!-- FULL NAME -->
+            <label for="full_name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="full_name"
+                name="full_name"
+                value="{{ student.full_name }}"
+                required
+            >
+
+
+            <!-- EMAIL -->
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ student.email }}"
+                required
+            >
+
+
+            <!-- PHONE -->
+            <label for="phone">
+                Phone
+            </label>
+
+            <input
+                type="text"
+                id="phone"
+                name="phone"
+                value="{{ student.phone }}"
+            >
+
+
+            <!-- COLLEGE -->
+            <label for="college">
+                College
+            </label>
+
+            <input
+                type="text"
+                id="college"
+                name="college"
+                value="{{ student.college }}"
+            >
+
+
+            <!-- BRANCH -->
+            <label for="branch">
+                Branch
+            </label>
+
+            <input
+                type="text"
+                id="branch"
+                name="branch"
+                value="{{ student.branch }}"
+            >
+
+
+            <!-- CGPA -->
+            <label for="cgpa">
+                CGPA
+            </label>
+
+            <input
+                type="number"
+                step="0.01"
+                id="cgpa"
+                name="cgpa"
+                value="{{ student.cgpa }}"
+            >
+
+
+            <!-- GRADUATION YEAR -->
+            <label for="graduation_year">
+                Graduation Year
+            </label>
+
+            <input
+                type="number"
+                id="graduation_year"
+                name="graduation_year"
+                value="{{ student.graduation_year }}"
+            >
+
+
+            <!-- SKILLS -->
+            <label for="skills">
+                Skills
+            </label>
+
+            <textarea
+                id="skills"
+                name="skills"
+            >{{ student.skills }}</textarea>
+
+
+            <!-- RESUME -->
+            <label for="resume">
+                Resume
+            </label>
+
+            <input
+                type="file"
+                id="resume"
+                name="resume"
+            >
+
+            {% if student.resume %}
+                <div class="current-file">
+                    Current resume:
+                    <a href="{{ student.resume.url }}" target="_blank">
+                        View Resume
+                    </a>
+                </div>
+            {% endif %}
+
+
+            <!-- PROFILE PHOTO -->
+            <label for="profile_photo">
+                Profile Photo
+            </label>
+
+            <input
+                type="file"
+                id="profile_photo"
+                name="profile_photo"
+                accept="image/*"
+            >
+
+            {% if student.profile_photo %}
+                <div class="current-file">
+                    Current photo:
+                    <a href="{{ student.profile_photo.url }}" target="_blank">
+                        View Photo
+                    </a>
+                </div>
+            {% endif %}
+
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Save Profile
+            </button>
+
+        </form>
+
+
+        <a
+            href="{% url 'student_dashboard' %}"
+            class="back-btn"
+        >
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>
+```
