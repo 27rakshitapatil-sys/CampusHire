@@ -1,0 +1,242 @@
+﻿[
+{
+  "model": "jobs.job",
+  "pk": 2,
+  "fields": {
+    "recruiter": 2,
+    "title": "Web Developer Intern",
+    "description": "Looking for a web developer intern.",
+    "requirements": "Basic knowledge of HTML, CSS and JavaScript.",
+    "skills": "HTML, CSS, JavaScript",
+    "location": "Hyderabad",
+    "salary": "Γé╣15,000/month",
+    "job_type": "Internship",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:46:16.350Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 3,
+  "fields": {
+    "recruiter": 3,
+    "title": "Data Analyst",
+    "description": "Looking for a skilled Data Analyst.",
+    "requirements": "Good knowledge of Python, Pandas and SQL.",
+    "skills": "Python, Pandas, SQL",
+    "location": "Pune",
+    "salary": "Γé╣4 - Γé╣6 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:46:58.831Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 5,
+  "fields": {
+    "recruiter": 5,
+    "title": "Frontend Developer",
+    "description": "Looking for a creative Frontend Developer.",
+    "requirements": "Good knowledge of HTML, CSS, JavaScript and React.",
+    "skills": "HTML, CSS, JavaScript, React",
+    "location": "Chennai",
+    "salary": "Γé╣4 - Γé╣7 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:47:54.656Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 6,
+  "fields": {
+    "recruiter": 6,
+    "title": "Full Stack Developer",
+    "description": "Looking for a Full Stack Developer to build modern web applications.",
+    "requirements": "Good knowledge of Python, Django, React and SQL.",
+    "skills": "Python, Django, React, SQL",
+    "location": "Hyderabad",
+    "salary": "Γé╣6 - Γé╣10 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:48:23.631Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 7,
+  "fields": {
+    "recruiter": 7,
+    "title": "Machine Learning Engineer",
+    "description": "Looking for a Machine Learning Engineer to develop intelligent solutions.",
+    "requirements": "Good knowledge of Python, Machine Learning and Scikit-learn.",
+    "skills": "Python, Machine Learning, Scikit-learn",
+    "location": "Pune",
+    "salary": "Γé╣7 - Γé╣12 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:48:52.367Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 8,
+  "fields": {
+    "recruiter": 8,
+    "title": "AI Engineer",
+    "description": "Looking for an AI Engineer to develop intelligent applications.",
+    "requirements": "Good knowledge of Python, AI and Machine Learning.",
+    "skills": "Python, AI, Machine Learning",
+    "location": "Bangalore",
+    "salary": "Γé╣8 - Γé╣14 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:49:20.367Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 9,
+  "fields": {
+    "recruiter": 9,
+    "title": "Cybersecurity Analyst",
+    "description": "Looking for a talented Cybersecurity Analyst.",
+    "requirements": "Good knowledge of Cybersecurity, Python, Networking.",
+    "skills": "Cybersecurity, Python, Networking",
+    "location": "Mumbai",
+    "salary": "Γé╣5 - Γé╣9 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:50:40.081Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 10,
+  "fields": {
+    "recruiter": 10,
+    "title": "Cloud Engineer",
+    "description": "Looking for a talented Cloud Engineer.",
+    "requirements": "Good knowledge of AWS, Azure, Linux.",
+    "skills": "AWS, Azure, Linux",
+    "location": "Hyderabad",
+    "salary": "Γé╣6 - Γé╣11 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:50:40.097Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 11,
+  "fields": {
+    "recruiter": 11,
+    "title": "DevOps Engineer",
+    "description": "Looking for a talented DevOps Engineer.",
+    "requirements": "Good knowledge of Docker, Kubernetes, AWS, Jenkins.",
+    "skills": "Docker, Kubernetes, AWS, Jenkins",
+    "location": "Chennai",
+    "salary": "Γé╣6 - Γé╣10 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:50:40.116Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 12,
+  "fields": {
+    "recruiter": 12,
+    "title": "Django Developer",
+    "description": "Looking for a talented Django Developer.",
+    "requirements": "Good knowledge of Python, Django, SQL.",
+    "skills": "Python, Django, SQL",
+    "location": "Mysore",
+    "salary": "Γé╣4 - Γé╣7 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:50:40.132Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 13,
+  "fields": {
+    "recruiter": 13,
+    "title": "Software Engineer",
+    "description": "Looking for a talented Software Engineer.",
+    "requirements": "Good knowledge of Python, Java, SQL, DSA.",
+    "skills": "Python, Java, SQL, DSA",
+    "location": "Delhi",
+    "salary": "Γé╣5 - Γé╣9 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-10-31",
+    "created_at": "2026-09-07T08:50:40.148Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 17,
+  "fields": {
+    "recruiter": 1,
+    "title": "Cloud Security Engineer",
+    "description": "We are looking for a Cloud Security Engineer to help protect cloud applications and infrastructure.",
+    "requirements": "Good knowledge of cloud computing, networking and cybersecurity concepts.",
+    "skills": "Python, AWS, Cybersecurity, Networking",
+    "location": "Bangalore",
+    "salary": "Γé╣6,00,000 - Γé╣9,00,000",
+    "job_type": "Full Time",
+    "deadline": "2026-11-30",
+    "created_at": "2026-09-10T13:20:38.960Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 18,
+  "fields": {
+    "recruiter": 5,
+    "title": "Python Developer Intern",
+    "description": "Looking for a Python developer intern.",
+    "requirements": "Basic knowledge of Python and Django.",
+    "skills": "Python, Django, SQL",
+    "location": "Bangalore",
+    "salary": "Γé╣16,000/month",
+    "job_type": "Internship",
+    "deadline": "2026-11-30",
+    "created_at": "2026-09-11T12:28:23.584Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 19,
+  "fields": {
+    "recruiter": 4,
+    "title": "Java Developer",
+    "description": "Java developer required for software development.",
+    "requirements": "Campus Recruitment",
+    "skills": "Java, Python, SQL",
+    "location": "Mumbai",
+    "salary": "5 LPA",
+    "job_type": "Full Time",
+    "deadline": "2026-12-30",
+    "created_at": "2026-09-11T13:10:06.098Z"
+  }
+},
+{
+  "model": "jobs.job",
+  "pk": 20,
+  "fields": {
+    "recruiter": 1,
+    "title": "Python developer",
+    "description": "Develop and maintain Python applications and web solutions.",
+    "requirements": "Basic Python, Django, SQL knowledge and good problem-solving skills.",
+    "skills": "Python, Django, SQL",
+    "location": "Bangalore",
+    "salary": "Γé╣4,00,000 - Γé╣7,00,000 per year",
+    "job_type": "Part Time",
+    "deadline": "2026-12-30",
+    "created_at": "2026-09-14T07:13:55.469Z"
+  }
+}
+]
