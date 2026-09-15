@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.db import connection, transaction
 
 from students.models import Student
 from recruiters.models import Recruiter
@@ -181,6 +182,7 @@ def recruiter_register_view(request):
         # Required fields
 
         if not username or not full_name or not email or not password:
+
             return render(
                 request,
                 'recruiter_register.html',
@@ -192,6 +194,7 @@ def recruiter_register_view(request):
         # Username check
 
         if User.objects.filter(username=username).exists():
+
             return render(
                 request,
                 'recruiter_register.html',
@@ -203,6 +206,7 @@ def recruiter_register_view(request):
         # Email check
 
         if User.objects.filter(email=email).exists():
+
             return render(
                 request,
                 'recruiter_register.html',
@@ -212,6 +216,7 @@ def recruiter_register_view(request):
             )
 
         if Student.objects.filter(email=email).exists():
+
             return render(
                 request,
                 'recruiter_register.html',
@@ -221,6 +226,7 @@ def recruiter_register_view(request):
             )
 
         if Recruiter.objects.filter(email=email).exists():
+
             return render(
                 request,
                 'recruiter_register.html',
@@ -232,6 +238,7 @@ def recruiter_register_view(request):
         # Password confirmation
 
         if password != confirm_password:
+
             return render(
                 request,
                 'recruiter_register.html',
@@ -240,26 +247,70 @@ def recruiter_register_view(request):
                 }
             )
 
-        # Create login account
+        # =================================================
+        # CREATE USER + RECRUITER SAFELY
+        # =================================================
 
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password
-        )
+        with transaction.atomic():
 
-        # Create recruiter profile
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password
+            )
 
-        Recruiter.objects.create(
-            user=user,
-            full_name=full_name,
-            email=email,
-            phone=phone,
-            company_name=company_name,
-            company_description=company_description,
-            company_website=company_website or None,
-            company_location=company_location
-        )
+            # Fix PostgreSQL recruiter ID sequence
+            # before creating the recruiter profile.
+
+            if connection.vendor == 'postgresql':
+
+                with connection.cursor() as cursor:
+
+                    cursor.execute("""
+                        SELECT MAX(id)
+                        FROM recruiters_recruiter
+                    """)
+
+                    max_id = cursor.fetchone()[0]
+
+                    if max_id is None:
+
+                        cursor.execute("""
+                            SELECT setval(
+                                pg_get_serial_sequence(
+                                    'recruiters_recruiter',
+                                    'id'
+                                ),
+                                1,
+                                false
+                            )
+                        """)
+
+                    else:
+
+                        cursor.execute("""
+                            SELECT setval(
+                                pg_get_serial_sequence(
+                                    'recruiters_recruiter',
+                                    'id'
+                                ),
+                                %s,
+                                true
+                            )
+                        """, [max_id])
+
+            # Create recruiter profile
+
+            Recruiter.objects.create(
+                user=user,
+                full_name=full_name,
+                email=email,
+                phone=phone,
+                company_name=company_name,
+                company_description=company_description,
+                company_website=company_website or None,
+                company_location=company_location
+            )
 
         return redirect('/accounts/login/')
 
