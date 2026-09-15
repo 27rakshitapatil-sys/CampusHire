@@ -21,4 +21,19 @@ if username and password:
 
 python manage.py seed_jobs
 
+python manage.py shell -c "
+from django.db import connection
+
+with connection.cursor() as cursor:
+    cursor.execute(
+        \"SELECT setval(
+            pg_get_serial_sequence('recruiters_recruiter', 'id'),
+            COALESCE((SELECT MAX(id) FROM recruiters_recruiter), 1),
+            true
+        )\"
+    )
+
+print('Recruiter ID sequence fixed.')
+"
+
 gunicorn config.wsgi:application
